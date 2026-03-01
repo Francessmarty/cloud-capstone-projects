@@ -2,69 +2,49 @@
 set -e
 source ./scripts/00-config.sh
 
+echo "Getting private IPs..."
 
-echo "Getting private IPs."
-
-APP_IP=$(az vm list-ip-addresses -g "$RG" -n "$APP_VM" \
-  --query "[0].virtualMachine.network.privateIpAddresses[0]" -o tsv)
-
-DB_IP=$(az vm list-ip-addresses -g "$RG" -n "$DB_VM" \
-  --query "[0].virtualMachine.network.privateIpAddresses[0]" -o tsv)
+APP_IP=$(az vm show -d -g "$RG" -n "$APP_VM" --query privateIps -o tsv)
+DB_IP=$(az vm show -d -g "$RG" -n "$DB_VM" --query privateIps -o tsv)
 
 echo "APP_IP=$APP_IP"
 echo "DB_IP=$DB_IP"
+echo "----------------------------------"
 
-echo "Installing netcat on all VMs"
+run_test () {
+  FROM_VM=$1
+  TO_IP=$2
+  PORT=$3
+  EXPECTED=$4
+  LABEL=$5
 
-for VM in "$WEB_VM" "$APP_VM" "$DB_VM"
-do
-  az vm run-command invoke -g "$RG" -n "$VM" \
+  echo "TEST: $LABEL (should $EXPECTED)"
+
+  OUTPUT=$(az vm run-command invoke \
+    -g "$RG" -n "$FROM_VM" \
     --command-id RunShellScript \
-    --scripts "sudo apt-get update -y && sudo apt-get install -y netcat-openbsd" \
-    --output none
-done
+    --scripts "timeout 4 nc -zvw3 $TO_IP $PORT; echo RC:\$?" \
+    --query "value[0].message" -o tsv)
 
-echo "Starting listener on APP (8080)"
-az vm run-command invoke -g "$RG" -n "$APP_VM" \
-  --command-id RunShellScript \
-  --scripts "nohup nc -lkp 8080 >/dev/null 2>&1 &" \
-  --output none
+  echo "$OUTPUT"
 
-echo "Starting listener on DB (5432)"
-az vm run-command invoke -g "$RG" -n "$DB_VM" \
-  --command-id RunShellScript \
-  --scripts "nohup nc -lkp 5432 >/dev/null 2>&1 &" \
-  --output none
+  if echo "$OUTPUT" | grep -q "RC:0"; then
+    ACTUAL="PASS"
+  else
+    ACTUAL="FAIL"
+  fi
 
-echo "TEST 1: WEB -> APP:8080 (should PASS)"
-az vm run-command invoke -g "$RG" -n "$WEB_VM" \
-  --command-id RunShellScript \
-  --scripts "nc -zv -w 3 $APP_IP 8080"
+  if [[ "$ACTUAL" == "$EXPECTED" ]]; then
+    echo "RESULT: $ACTUAL Pass"
+  else
+    echo "RESULT: $ACTUAL Fail"
+  fi
 
+  echo "----------------------------------"
+}
 
-echo "TEST 2: WEB -> DB:5432 (should FAIL)"
-set +e
-az vm run-command invoke -g "$RG" -n "$WEB_VM" \
-  --command-id RunShellScript \
-  --scripts "nc -zv -w 3 $DB_IP 5432"
-TEST2_EXIT=$?
-set -e
-
-if [ $TEST2_EXIT -eq 0 ]; then
-  echo "UNEXPECTED: WEB -> DB succeeded (should FAIL). Check NSG rules."
-else
-  echo "Expected result: WEB -> DB blocked."
-fi
-
-
-echo "TEST 3: APP -> DB:5432 (should PASS)"
-az vm run-command invoke -g "$RG" -n "$APP_VM" \
-  --command-id RunShellScript \
-  --scripts "nc -zv -w 3 $DB_IP 5432"
-
+run_test "$WEB_VM" "$APP_IP" 8080 "PASS" "WEB -> APP:8080"
+run_test "$WEB_VM" "$DB_IP" 5432 "FAIL" "WEB -> DB:5432"
+run_test "$APP_VM" "$DB_IP" 5432 "PASS" "APP -> DB:5432"
 
 echo "Verification completed."
-echo "Expected:"
-echo "- WEB -> APP: PASS"
-echo "- WEB -> DB: FAIL"
-echo "- APP -> DB: PASS"

@@ -5,7 +5,7 @@ set -e
 PREFIX="frances"
 
 # Location
-LOCATION="eastus"
+LOCATION="northeurope"
 
 # Resource group + network names
 RG="${PREFIX}-rg"
@@ -36,7 +36,7 @@ DB_VM="${PREFIX}-db-vm"
 ADMIN_USER="azureuser"
 
 # Cheap VM size
-VM_SIZE="Standard_B1s"
+VM_SIZE="Standard_D2s_v3"
 
 # SSH public key
 SSH_KEY="$HOME/.ssh/frances-azure.pub"

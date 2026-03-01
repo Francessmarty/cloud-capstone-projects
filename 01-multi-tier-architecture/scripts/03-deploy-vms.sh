@@ -7,7 +7,7 @@ source ./scripts/00-config.sh
 echo "Deploying VMs into subnets"
 echo "RG: $RG | VNET: $VNET | Location: $LOCATION"
 
-# Basic checks
+# Checking
 if [[ ! -f "$SSH_KEY" ]]; then
   echo "SSH public key not found at: $SSH_KEY"
   echo "Create it with:"
