@@ -4,9 +4,10 @@
 
 ### Overview
 
-In this project, I deployed a multi-tier architecture in Azure using Azure CLI scripts and version control in GitHub.
+In this project, I deployed a multi tier architecture in Azure using Azure CLI scripts and version control in GitHub.
 
 The goal:
+
 	Create a segmented network (Web, App, DB)
 	Deploy Linux VMs in each subnet
 	Control traffic between them using NSGs
@@ -22,7 +23,9 @@ Everything was deployed using CLI. No manual resource creation in the Azure Port
 ### Network Setup
 
 The environment includes:
+
 	1 Virtual Network
+
 	Subnets:
 		1 Web subnet (10.10.1.0/24)
 		1 App subnet (10.10.2.0/24)
@@ -40,9 +43,10 @@ The environment includes:
 ### Access Control Design
 
 Traffic is restricted intentionally:
-	•	Web to App (port 8080): Allowed
-	•	App to DB (port 5432): Allowed
-	•	Web to DB: Blocked
+
+	Web to App (port 8080): Allowed
+	App to DB (port 5432): Allowed
+	Web to DB: Blocked
 
 This enforces proper tier separation.
 
@@ -53,6 +57,7 @@ The verification script confirms that these rules behave exactly as expected.
 ### What This Project Demonstrates
 
 This project shows:
+
 	•	How to create a segmented VNet with multiple subnets
 	•	How to provision Linux VMs using Azure CLI
 	•	How to enforce layered access control using NSGs
@@ -87,14 +92,19 @@ scripts/04-deploy-all.sh
 
 ### Verification
 
+Connectivity rules were validated using an automated verification script 05-verify.sh.
+
+The script uses Azure Run Command to remotely execute connectivity tests inside each VM and confirm that NSG rules are properly enforced.
+
 Expected results:
-	•	WEB → APP = PASS
-	•	WEB → DB = FAIL
-	•	APP → DB = PASS
 
-These results confirm that access control is working correctly.
+	WEB to APP (Port 8080) = PASS  
+	WEB to DB (Port 5432) = FAIL  
+	APP to DB (Port 5432) = PASS  
 
-Screenshots of all verification steps are included in the screenshots/ folder.
+These results confirm correct multi tier network segmentation and enforced access control (Web to App to DB only).
+
+Screenshots of the verification output are included in the screenshots/ folder.
 
 ----
 
@@ -110,8 +120,9 @@ This deletes the entire resource group to avoid unnecessary Azure costs.
 ### Final Notes
 
 This project focuses on:
-	•	Network segmentation
-	•	Enforced access control
-	•	Scripted deployment
-	•	Validation through connectivity testing
-	•	Proper cleanup after use
+
+	Network segmentation
+	Enforced access control
+	Scripted deployment
+	Validation through connectivity testing
+	Proper cleanup after use
