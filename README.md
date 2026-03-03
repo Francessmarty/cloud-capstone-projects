@@ -1,4 +1,6 @@
-#### Cloud Infrastructure & Automation: Capstone Project
+## Cloud Infrastructure & Automation: Capstone Projects
+
+----
 
 This repository contains my capstone work demonstrating practical cloud engineering, containerization, infrastructure deployment and CI/CD automation using Microsoft Azure, Docker and GitHub Actions.
 
@@ -6,44 +8,44 @@ The capstone consists of two major projects, each focusing on different layers o
 
 ----
 
-#### Repository Structure
+## Repository Structure
 
 cloud-capstone-projects/
-│
-├── .github/
-├── 01-multi-tier-architecture/
-├── 02-dockerized-web-app/
-│
-└── README.md
+     .github/
+    01-multi-tier-architecture/
+    02-dockerized-web-app/
+    README.md
 
 ----
 
-#### Project 1: VNet-Based Multi-Tier Architecture (Infrastructure Focus)
+## Project 1: VNet Based Multi-Tier Architecture (Infrastructure Focus)
 
-#### Objective
+## Objective
 
 Design and deploy a secure multi-tier architecture in Microsoft Azure using:
-	•	Virtual Network (VNet)
-	•	Subnets (Web, App, DB)
-	•	Linux Virtual Machines
-	•	Network Security Groups (NSGs)
-	•	Controlled communication between tiers
+
+	    Virtual Network (VNet)
+        Subnets (Web, App, DB)
+        Linux Virtual Machines
+        Network Security Groups (NSGs)
+        Controlled communication between tiers
 
 
 ----
 
-#### Architecture Logic
+## Architecture Logic
 
 Web VM to App VM to DB VM
 
 Security rules enforced:
-	•	Web to App:Allowed
-	•	Web to DB: Blocked
-	•	App to DB: Allowed
+
+	    Web to App:Allowed
+	    Web to DB: Blocked
+	    App to DB: Allowed
 
 This demonstrated network segmentation and access control enforcement.
 
-#### Key Skills Demonstrated
+## Key Skills Demonstrated
 	•	Azure CLI scripting
 	•	VNet and subnet configuration
 	•	NSG rule configuration
@@ -53,26 +55,28 @@ This demonstrated network segmentation and access control enforcement.
 
 ----
 
-##### Project 2: Dockerized 3 Tier Web Application with CI/CD
+## Project 2: Dockerized 3 Tier Web Application with CI/CD
 ----
-#### Objective
+
+## Objective
 
 Design, containerize and deploy a 3-tier web application using Docker and GitHub CI/CD.
 
 Application stack:
-	•	Frontend: Nginx
-	•	Backend: Node.js
-	•	Database: MySQL
+
+	    Frontend: Nginx
+        Backend: Node.js
+        Database: MySQL
 
 ----
 
-#### Application Architecture
+## Application Architecture
 
 User to Frontend (Nginx) to Backend (Node.js API) to MySQL Database
 
 ----
 
-#### What Was Implemented
+## What Was Implemented
 	•	Separate Dockerfiles for frontend and backend
 	•	Multi service orchestration using Docker Compose
 	•	Image version tagging (v2)
@@ -84,31 +88,33 @@ User to Frontend (Nginx) to Backend (Node.js API) to MySQL Database
 
 ----
 
-#### CI/CD Pipeline
+## CI/CD Pipeline
 
 GitHub Actions workflow automatically:
-	•	Builds Docker images
-	•	Tags images
-	•	Pushes to Docker Hub
+
+	    Builds Docker images
+        Tags images
+        Pushes to Docker Hub
 
 This ensures reproducible builds and automated container versioning.
 
 ----
 
-#### Deployment & Verification
+## Deployment & Verification
 
 For both projects, screenshots are included demonstrating:
-	•	Infrastructure provisioning
-	•	Network rule enforcement
-	•	Running containers
-	•	Public web access
-	•	Successful CI/CD pipeline execution
+
+    Infrastructure provisioning
+    Network rule enforcement
+    Running containers
+    Public web access
+    Successful CI/CD pipeline execution
 
 All cloud resources were cleaned up after validation to prevent unnecessary cost.
 
 ----
 
-#### Technologies Used
+## Technologies Used
 	•	Microsoft Azure
 	•	Azure CLI
 	•	Linux (Ubuntu)
@@ -121,20 +127,21 @@ All cloud resources were cleaned up after validation to prevent unnecessary cost
 
 ----
 
-#### What This Capstone Demonstrates
+## What This Capstone Demonstrates
 
 This capstone showcases:
-	•	Infrastructure provisioning and segmentation
-	•	Secure multi tier network design
-	•	Containerization best practices
-	•	CI/CD automation
-	•	Cloud VM deployment
-	•	DevOps lifecycle management
-	•	Responsible cloud cost governance
+
+    Infrastructure provisioning and segmentation
+    Secure multi tier network design
+    Containerization best practices
+    CI/CD automation
+    Cloud VM deployment
+    DevOps lifecycle management
+    Responsible cloud cost governance
 
 ----
 
-#### Outcome
+## Outcome
 
 Both projects were successfully implemented, verified and documented.
 
@@ -142,9 +149,8 @@ This repository demonstrates practical cloud engineering skills combining infras
 
 ----
 
-#### Author
+## Author
 
 Frances Ehinor
-Cloud & DevOps Engineer
-Capstone Project Cloud Infrastructure & Automation
+Capstone Project: Cloud Infrastructure & Automation
 
