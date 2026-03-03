@@ -11,7 +11,8 @@ The capstone consists of two major projects, each focusing on different layers o
 ## Repository Structure
 
 cloud-capstone-projects/
-     .github/
+
+    .github/
     01-multi-tier-architecture/
     02-dockerized-web-app/
     README.md

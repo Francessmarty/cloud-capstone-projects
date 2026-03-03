@@ -128,7 +128,14 @@ This project focuses on:
 	Proper cleanup after use
 
 ----
+## Repository Structure
 
+	01-multi-tier-architecture/
+		screenshots/
+		scripts/
+		README.md
+
+----
 ## Auther
 
 Frances Ehinor

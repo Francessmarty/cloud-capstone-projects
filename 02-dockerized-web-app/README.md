@@ -139,15 +139,15 @@ After verification and screenshot capture, the Azure VM and associated resources
 
 ## Repository Structure
 
-02-dockerized-web-app/
-    backend/
-        Dockerfile
-    db/
-        Dockerfile
-    frontend/   
-        Dockerfile
-    docker-compose.yml
-    README.md
+    02-dockerized-web-app/
+        backend/
+            Dockerfile
+        db/
+            Dockerfile
+        frontend/   
+            Dockerfile
+        docker-compose.yml
+        README.md
 
 
 ----
