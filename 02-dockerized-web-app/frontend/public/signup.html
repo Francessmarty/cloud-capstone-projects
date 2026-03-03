@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign up</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="auth-page">
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <div class="brand-logo">Frances Capstone Project</div>
+        <div class="brand-subtitle">Create your account</div>
+      </div>
+
+      <form id="signupForm" class="auth-form">
+        <div class="field">
+          <input type="email" name="email" placeholder="Email" required />
+        </div>
+
+        <div class="field">
+          <input type="text" name="name" placeholder="Full name" required />
+        </div>
+
+        <div class="field">
+          <input type="text" name="username" placeholder="username" required />
+        </div>
+
+        <div class="field">
+          <input type="password" name="password" placeholder="Password" required />
+        </div>
+
+        <button class="btn primary full" type="submit">Sign up</button>
+
+        <p id="signupMessage" class="message"></p>
+
+        <div class="auth-divider">
+          <span>OR</span>
+        </div>
+
+        <a class="btn outline full" href="login.html">I already have an account</a>
+      </form>
+    </div>
+
+    <div class="auth-footer">
+      Already have an account? <a href="login.html">Log in</a>
+      <span class="dot">•</span>
+      <a href="index.html">Back to home</a>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

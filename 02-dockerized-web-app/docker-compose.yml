@@ -1,0 +1,46 @@
+services:
+  frontend:
+    image: francesehinor/dockerized-web-app-frontend:v2
+    container_name: frances-ehinor-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    image: francesehinor/dockerized-web-app-backend:v2
+    container_name: frances-ehinor-backend
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: db
+      DB_USER: appuser
+      DB_PASSWORD: apppass
+      DB_NAME: appdb
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: francesehinor/dockerized-web-app-db:v2
+    container_name: frances-ehinor-db
+    environment:
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppass
+      MYSQL_ROOT_PASSWORD: rootpass
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Log in</h1>
+      <p class="muted">Login page.</p>
+    </header>
+
+    <section class="card">
+      <form id="loginForm" class="form">
+        <label>
+          Email
+          <input type="email" name="email" placeholder="you@example.com" required />
+        </label>
+
+        <label>
+          Password
+          <input type="password" name="password" placeholder="••••••••" required />
+        </label>
+
+        <button class="btn" type="submit">Log in</button>
+
+        <p class="muted small">
+          Don’t have an account? <a href="signup.html">Sign up</a>
+        </p>
+
+        <p id="loginMessage" class="message"></p>
+      </form>
+    </section>
+
+    <div class="row">
+      <a class="btn outline" href="index.html">← Back to Home</a>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -12,5 +12,5 @@ This repository contains multiple cloud infrastructure projects completed using 
     Automated full deployment with Bash script
 
 
-## Project 2: dockerized Web App
+## Project 2: Dockerized Web App
 (Coming next)

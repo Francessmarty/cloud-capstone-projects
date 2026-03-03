@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .container { max-width: 1000px; margin: 0 auto; padding: 24px; width: 100%; }
+    .card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 16px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.12); text-align: left; }
+    th { font-weight: 600; opacity: 0.9; }
+    .row { display: flex; gap: 12px; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .muted { opacity: 0.8; font-size: 0.95rem; }
+    .pill { padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.18); }
+    .actions { display:flex; gap:10px; align-items:center; }
+    .danger { background: #b91c1c; }
+  </style>
+</head>
+
+<body class="auth-page" style="margin:0; min-height:100vh; display:flex; flex-direction:column;">
+
+  <div class="container" style="padding-top:40px;">
+    <div class="row">
+      <div>
+        <h2 style="margin:0;">Dashboard</h2>
+        <div class="muted">Live data loaded from backend database</div>
+      </div>
+
+      <div class="actions">
+        <span id="statusPill" class="pill">Status: idle</span>
+        <button id="refreshBtn" class="btn primary">Refresh</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="row">
+        <h3 style="margin:0;">Inventory Table</h3>
+        <span id="recordCount" class="muted">0 records</span>
+      </div>
+
+      <div id="errorBox" class="message" style="display:none; margin-top:10px;"></div>
+
+      <div style="overflow:auto;">
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Item</th>
+              <th>SKU</th>
+              <th>Qty</th>
+              <th>Location</th>
+              <th>Updated</th>
+            </tr>
+          </thead>
+          <tbody id="dataBody">
+            <!-- rows injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="padding:20px 0;">
+      <button id="logoutBtn" class="btn primary danger">Logout</button>
+      <p id="logoutMessage" class="message"></p>
+    </div>
+  </div>
+
+  <script>
+    
+    
+    const API_BASE = "";
+
+    const statusPill = document.getElementById("statusPill");
+    const recordCount = document.getElementById("recordCount");
+    const errorBox = document.getElementById("errorBox");
+    const dataBody = document.getElementById("dataBody");
+    const refreshBtn = document.getElementById("refreshBtn");
+
+    function setStatus(text) {
+      statusPill.textContent = `Status: ${text}`;
+    }
+
+    function showError(msg) {
+      errorBox.style.display = "block";
+      errorBox.textContent = msg;
+    }
+
+    function clearError() {
+      errorBox.style.display = "none";
+      errorBox.textContent = "";
+    }
+
+    function renderRows(rows) {
+      dataBody.innerHTML = "";
+      for (const r of rows) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${r.id ?? ""}</td>
+          <td>${r.item_name ?? ""}</td>
+          <td>${r.sku ?? ""}</td>
+          <td>${r.qty ?? ""}</td>
+          <td>${r.location ?? ""}</td>
+          <td>${r.updated_at ?? ""}</td>
+        `;
+        dataBody.appendChild(tr);
+      }
+      recordCount.textContent = `${rows.length} records`;
+    }
+
+    async function loadInventory() {
+      clearError();
+      setStatus("loading...");
+      try {
+        const res = await fetch(`${API_BASE}/api/inventory`, {
+          method: "GET",
+          headers: { "Accept": "application/json" },
+         
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`Backend error (${res.status}): ${text}`);
+        }
+
+        const data = await res.json();
+        // Expecting: { rows: ]
+        const rows = Array.isArray(data) ? data : (data.rows || []);
+        renderRows(rows);
+        setStatus("ok");
+      } catch (err) {
+        setStatus("error");
+        showError(err.message || "Failed to load data");
+      }
+    }
+
+    refreshBtn.addEventListener("click", loadInventory);
+
+    // Initial load
+    loadInventory();
+  </script>
+
+  <script src="./app.js"></script>
+</body>
+</html>

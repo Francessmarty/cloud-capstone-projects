@@ -1,0 +1,40 @@
+name: Dockerized Web App CI/CD
+
+on:
+  push:
+    paths:
+      - '02-dockerized-web-app/**'
+    branches:
+      - master
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: 02-dockerized-web-app
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build Frontend
+        run: |
+          docker build -t francesehinor/dockerized-web-app-frontend:v2 ./frontend
+          docker push francesehinor/dockerized-web-app-frontend:v2
+
+      - name: Build Backend
+        run: |
+          docker build -t francesehinor/dockerized-web-app-backend:v2 ./backend
+          docker push francesehinor/dockerized-web-app-backend:v2
+
+      - name: Build DB
+        run: |
+          docker build -t francesehinor/dockerized-web-app-db:v2 ./db
+          docker push francesehinor/dockerized-web-app-db:v2
