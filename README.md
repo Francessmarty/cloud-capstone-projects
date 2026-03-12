@@ -94,7 +94,6 @@ User to Frontend (Nginx) to Backend (Node.js API) to MySQL Database
 GitHub Actions workflow automatically:
 
 	    Builds Docker images
-        Tags images
         Pushes to Docker Hub
 
 This ensures reproducible builds and automated container versioning.
@@ -109,7 +108,7 @@ For both projects, screenshots are included demonstrating:
     Network rule enforcement
     Running containers
     Public web access
-    Successful CI/CD pipeline execution
+    Successful application deployment 
 
 All cloud resources were cleaned up after validation to prevent unnecessary cost.
 
@@ -152,6 +151,7 @@ This repository demonstrates practical cloud engineering skills combining infras
 
 ## Author
 
-Frances Ehinor
+Frances Ehinor Ojiezele
+
 Capstone Project: Cloud Infrastructure & Automation
 
