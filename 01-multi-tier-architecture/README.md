@@ -1,4 +1,4 @@
-### Project 1: VNet Multi Tier Architecture with Access Control
+No### Project 1: VNet Multi Tier Architecture with Access Control
 
 ----
 
@@ -185,7 +185,7 @@ This project focuses on:
 	Proper cleanup after use
 
 ----
-## Repository Structure
+### Repository Structure
 
 	01-multi-tier-architecture/
 		screenshots/
@@ -193,6 +193,6 @@ This project focuses on:
 		README.md
 
 ----
-## Auther
+### Auther
 
-Frances Ehinor
+Frances Ehinor Ojiezele
