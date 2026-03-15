@@ -54,10 +54,10 @@ Everything was deployed using CLI. No manual resource creation in the Azure Port
 
 The architecture enforces strict tier separation:
 
-	• Internet traffic reaches only the **Web Tier**
-	• The **Web Tier** communicates with the **App Tier**
-	• The **App Tier** communicates with the **Database Tier**
-	• Direct **Web → Database** communication is blocked by NSG rules
+	• Internet traffic reaches only the Web Tier
+	• The Web Tier communicates with the App Tier
+	• The **App Tier communicates with the Database Tier
+	• Direct Web → Database communication is blocked by NSG rules
 
 
 ----
