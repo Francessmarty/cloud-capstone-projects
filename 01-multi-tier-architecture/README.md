@@ -34,7 +34,7 @@ Everything was deployed using CLI. No manual resource creation in the Azure Port
 
 ### Architecture Diagram
 
-`
+——
                 Internet
                    │
                    ▼
@@ -50,7 +50,7 @@ Everything was deployed using CLI. No manual resource creation in the Azure Port
                    ▼
            Database Tier (DB VM)
            Subnet: 10.10.3.0/24
-
+—-
 
 The architecture enforces strict tier separation:
 
