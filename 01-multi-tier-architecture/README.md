@@ -35,10 +35,10 @@ Everything was deployed using CLI. No manual resource creation in the Azure Port
 ### Architecture Diagram
 
 
-                My Public IP
-                   │
-				 SSH 22
-                   ▼
+            My Public IP
+                |
+			  SSH 22
+                ▼
            Web Tier (Web VM)
            Subnet: 10.10.1.0/24
                    │
