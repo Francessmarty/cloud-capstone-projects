@@ -37,8 +37,7 @@ Everything was deployed using CLI. No manual resource creation in the Azure Port
 
                 My Public IP
                    │
-				SSH 22
-				   │
+				             SSH 22
                    ▼
            Web Tier (Web VM)
            Subnet: 10.10.1.0/24
