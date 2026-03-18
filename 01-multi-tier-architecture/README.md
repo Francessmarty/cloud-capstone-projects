@@ -35,21 +35,23 @@ Everything was deployed using CLI. No manual resource creation in the Azure Port
 ### Architecture Diagram
 
 
-                Internet
+                My Public IP
                    │
+				SSH 22
+				   │
                    ▼
            Web Tier (Web VM)
            Subnet: 10.10.1.0/24
-           Port: 8080
                    │
+			Web to App 8080
                    ▼
            App Tier (App VM)
            Subnet: 10.10.2.0/24
-           Port: 5432
                    │
+		 App to Database 5432
                    ▼
-           Database Tier (DB VM)
-           Subnet: 10.10.3.0/24
+        Database Tier (DB VM)
+        Subnet: 10.10.3.0/24
 
 
 The architecture enforces strict tier separation:
@@ -99,12 +101,13 @@ The verification script confirms that these rules behave exactly as expected.
 
 ### NSG Rules Summary
 	
-	| Source   | Destination   | Port | Action |
-	|----------|-----------———-|——————|————————|
-	| Internet |   Web Tier    | 8080 | Allow  |
-	| Web Tier |   App Tier    | 8080 | Allow  |
-	| App Tier | Database Tier | 5432 | Allow  |
-	|    Any   | Database Tier | 5432 | Deny   |
+	|    Source     | Destination   | Port | Action |
+	|---------------|-----------———-|——————|————————|
+	|   Internet    |   App Tier    |  22  | Deny   |
+	| MY Public IP  |   Web Tier    |  22  | Allow  |
+	|   Web Subnet  |   App Tier    | 8080 | Allow  |
+	|   App Subnet  | Database Tier | 5432 | Allow  |
+	|     Any       | Database Tier | 5432 | Deny   |
 	
 
 
