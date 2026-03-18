@@ -103,7 +103,7 @@ The verification script confirms that these rules behave exactly as expected.
 	
 	|    Source     | Destination   | Port | Action |
 	|---------------|-----------———-|——————|————————|
-	|   Internet    |   App Tier    |  22  | Deny   |
+	| Internet(SSH) |   App Tier    |  22  | Deny   |
 	| MY Public IP  |   Web Tier    |  22  | Allow  |
 	|   Web Subnet  |   App Tier    | 8080 | Allow  |
 	|   App Subnet  | Database Tier | 5432 | Allow  |
